@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Income | BudgetWise</title>
+    <link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">BudgetWise</div>
+        <div class="nav-links">
+            <a href="home.html">Home</a>
+            <a href="login.html">Login/Register</a>
+            <a href="dashboard.html">Dashboard</a>
+            <a href="contact.html">Contact</a>
+            <a href="login.html">Logout</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <section class="add-income-section">
+            <h2>Add Income</h2>
+            <form id="incomeForm">
+                <label for="incomeDescription">Description</label>
+                <input type="text" id="incomeDescription" name="description" required>
+
+                <label for="incomeCategory">Category</label>
+                <select id="incomeCategory" name="category" required>
+                    <option value="Salary">Salary</option>
+                    <option value="Business">Business</option>
+                    <option value="Investments">Investments</option>
+                    <option value="Other">Other</option>
+                </select>
+
+                <!-- Hidden input field for custom category -->
+                <div id="otherCategoryDiv" style="display: none; margin-top: 10px;">
+                    <label for="otherCategory">Specify Other Category</label>
+                    <input type="text" id="otherCategory" name="otherCategory" placeholder="Enter custom category">
+                </div>
+
+                <label for="incomeAmount">Amount</label>
+                <input type="number" id="incomeAmount" name="amount" required>
+
+                <button type="submit">Add Income</button>
+            </form>
+        </section>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2024 BudgetWise</p>
+            <p>Email: <a href="mailto:pavithra.workss@gmail.com">pavithra.workss@gmail.com</a></p>
+            <p>Contact: <a href="tel:9345581448">9345581448</a></p>
+        </div>
+    </footer>
+
+    <script>
+        // Handle form submission for adding income
+        document.getElementById('incomeForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            // Get form values
+            const description = document.getElementById('incomeDescription').value;
+            const categorySelect = document.getElementById('incomeCategory');
+            const category = categorySelect.value === 'Other'
+                ? document.getElementById('otherCategory').value.trim()
+                : categorySelect.value;
+            const amount = parseFloat(document.getElementById('incomeAmount').value);
+            const date = new Date().toLocaleDateString();
+
+            // Validate the custom category if "Other" is selected
+            if (categorySelect.value === 'Other' && category === '') {
+                alert('Please specify a custom category.');
+                return;
+            }
+
+            // Create income object
+            const income = {
+                description,
+                category,
+                amount,
+                date
+            };
+
+            // Save income in localStorage
+            const incomes = JSON.parse(localStorage.getItem('incomes')) || [];
+            incomes.push(income);
+            localStorage.setItem('incomes', JSON.stringify(incomes));
+
+            // Redirect to dashboard
+            window.location.href = 'dashboard.html';
+        });
+
+        // Handle toggling of the custom category input field
+        document.getElementById('incomeCategory').addEventListener('change', function() {
+            const otherCategoryDiv = document.getElementById('otherCategoryDiv');
+            if (this.value === 'Other') {
+                otherCategoryDiv.style.display = 'block';
+            } else {
+                otherCategoryDiv.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>

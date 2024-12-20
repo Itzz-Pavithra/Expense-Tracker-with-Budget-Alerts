@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact | BudgetWise</title>
+  <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+  <!-- Navbar Placeholder -->
+  <div id="navbar-placeholder" class="nav-content">
+    <div class="logo">
+      <h1>BudgetWise</h1>
+    </div>
+    <div class="nav-links">
+      <a href="home.html">Home</a>
+      <a href="login.html">Login/Rgeister</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </div>
+
+  <!-- Contact Container -->
+  <div class="contact-container">
+    <div class="contact-card">
+      <div class="contact-header">
+        <i class="fas fa-headset"></i>
+        <h2>Contact Us</h2>
+        <p>We're here to help you with any questions</p>
+      </div>
+
+      <div class="contact-info">
+        <div class="contact-info-item">
+          <i class="fas fa-envelope"></i>
+          <span>pavithra.workss@gmail.com</span>
+        </div>
+        <div class="contact-info-item">
+          <i class="fas fa-phone"></i>
+          <span>9345581448</span>
+        </div>
+      </div>
+
+      <form 
+        class="contact-form" 
+        action="https://formspree.io/f/xovqonjd" 
+        method="POST"
+      >
+        <input type="text" name="name" placeholder="Your Name" required>
+        <input type="email" name="email" placeholder="Your Email" required>
+        <textarea name="message" placeholder="Your Message" rows="4" required></textarea>
+        <button type="submit" class="contact-button">
+          Send Message
+          <i class="fas fa-paper-plane"></i>
+        </button>
+      </form>
+    </div>
+  </div>
+
+   <!-- Footer -->
+   <footer>
+    <div class="footer-content">
+        <p>&copy; 2024 BudgetWise</p>
+        <p>Email: <a href="mailto:pavithra.workss@gmail.com">pavithra.workss@gmail.com</a></p>
+        <p>Contact: <a href="tel:9345581448">9345581448</a></p>
+    </div>
+  </footer>
+  <script>
+    // Simple form validation
+    document.querySelector('.contact-form').addEventListener('submit', function(e) {
+      const name = document.querySelector('input[name="name"]');
+      const email = document.querySelector('input[name="email"]');
+      const message = document.querySelector('textarea[name="message"]');
+
+      if (name.value.trim() === '' || email.value.trim() === '' || message.value.trim() === '') {
+        e.preventDefault();
+        alert('Please fill out all fields');
+      }
+    });
+  </script>
+</body>
+</html>

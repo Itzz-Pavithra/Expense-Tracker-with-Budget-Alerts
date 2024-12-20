@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home | BudgetWise</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav id="navbar">
+        <div class="nav-content">
+            <div class="logo"><h1>BudgetWise</h1></div>
+            <div class="nav-links">
+                <a href="home.html" class="active">Home</a>
+                <a href="login.html">Login/Register</a>
+                <a href="contact.html">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- User Welcome Section -->
+    <div class="user-welcome">
+        <span id="user-name">Welcome</span>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Take Control of Your Finances</h1>
+            <p>Track expenses, set budgets, and achieve your financial goals</p>
+            <div class="hero-buttons">
+                <a href="login.html" class="btn btn-primary pulse-animation">Get Started <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <h2 class="section-heading">Smart Features for Smart Budgeting</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <i class="fas fa-chart-line"></i>
+                <h3>Expense Tracking</h3>
+                <p>Automatically categorize your expenses and track spending patterns with smart categorization.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-wallet"></i>
+                <h3>Budget Planning</h3>
+                <p>Create custom budgets for different categories and get real-time alerts when approaching limits.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-chart-pie"></i>
+                <h3>Visual Reports</h3>
+                <p>Understand your spending with intuitive charts and downloadable monthly reports.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-mobile-alt"></i>
+                <h3>Mobile Ready</h3>
+                <p>Track expenses on-the-go with our mobile-friendly interface and instant receipt scanning.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="how-it-works" id="demo">
+        <h2 class="section-heading">How BudgetWise Works</h2>
+        <div class="steps-container">
+            <div class="step">
+                <div class="step-number">1</div>
+                <h3>Connect Your Accounts</h3>
+                <p>Securely link your bank accounts and credit cards for automatic expense tracking</p>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <h3>Set Your Budget</h3>
+                <p>Create custom budgets for different expense categories</p>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <h3>Track & Save</h3>
+                <p>Monitor your spending and receive insights to help you save more</p>
+            </div>
+        </div>
+    </section>
+
+   <!-- Footer -->
+<footer>
+    <div class="footer-content">
+        <p>&copy; 2024 BudgetWise</p>
+        <p>Email: <a href="mailto:pavithra.workss@gmail.com">pavithra.workss@gmail.com</a></p>
+        <p>Contact: <a href="tel:9345581448">9345581448</a></p>
+    </div>
+</footer>
+
+    <script>
+        function updateUserProfile(userName) {
+            const userNameElement = document.getElementById('user-name');
+            if (userName) {
+                userNameElement.textContent = `Welcome, ${userName}`;
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Example: Update with actual user name after authentication
+            updateUserProfile('');
+        });
+
+        // Smooth scrolling for internal links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
