@@ -77,13 +77,13 @@
     </main>
 
     <!-- Footer -->
-<footer>
-    <div class="footer-content">
-        <p>&copy; 2024 BudgetWise</p>
-        <p>Email: <a href="mailto:pavithra.workss@gmail.com">pavithra.workss@gmail.com</a></p>
-        <p>Contact: <a href="tel:9345581448">9345581448</a></p>
-    </div>
-</footer>
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2024 BudgetWise</p>
+            <p>Email: <a href="mailto:pavithra.workss@gmail.com">pavithra.workss@gmail.com</a></p>
+            <p>Contact: <a href="tel:9345581448">9345581448</a></p>
+        </div>
+    </footer>
     <script>
         // Toggle password visibility
         document.querySelector('.toggle-password').addEventListener('click', function() {
@@ -97,8 +97,22 @@
         // Handle login form submission
         function handleLogin(event) {
             event.preventDefault();
-            // Simulate successful login
-            window.location.href = "dashboard.html";
+
+            // Hardcoded username and password for validation
+            const validUsername = "user123";
+            const validPassword = "pass123";
+
+            // Get entered username and password
+            const enteredUsername = document.querySelector('#username').value;
+            const enteredPassword = document.querySelector('#password').value;
+
+            // Check credentials
+            if (enteredUsername === validUsername && enteredPassword === validPassword) {
+                alert('Login successful!');
+                window.location.href = "dashboard.html";
+            } else {
+                alert('Invalid username or password. Please try again.');
+            }
         }
 
         // Simulate Google Sign-In
