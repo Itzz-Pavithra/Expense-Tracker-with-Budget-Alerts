@@ -548,6 +548,175 @@ body {
   }
 }
 
+
+/* forgot-password */
+
+/* Global Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  background: #f9f9f9;
+  color: #333;
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Footer Styles */
+.footer-content {
+  background: #1f2937;
+  color: white;
+  text-align: center;
+  padding: 1rem;
+  width: 100%;
+}
+
+.footer-content p {
+  margin: 0.5rem 0;
+}
+
+.footer-content a {
+  color: #4CAF50;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-content a:hover {
+  color: #45a049;
+}
+
+/* Forgot Password Specific Styles */
+.login-header i {
+  font-size: 2.5rem;
+  color: #4CAF50;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.login-header h2 {
+  color: #1f2937;
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.login-header p {
+  color: #666;
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Form Styles */
+#forgot-password-form .form-group {
+  margin-bottom: 1.5rem;
+}
+
+#forgot-password-form .input-icon {
+  position: relative;
+}
+
+#forgot-password-form .input-icon i {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #4CAF50;
+}
+
+#forgot-password-form input {
+  width: 100%;
+  padding: 0.8rem 2.5rem 0.8rem 1rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+#forgot-password-form input:focus {
+  border-color: #4CAF50;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+}
+
+/* Button Styles */
+#forgot-password-form .login-button {
+  width: 100%;
+  padding: 0.8rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  background: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  transition: background-color 0.3s ease;
+}
+
+#forgot-password-form .login-button:hover {
+  background: #45a049;
+}
+
+#forgot-password-form .login-button i {
+  font-size: 1rem;
+}
+
+/* Login Footer */
+.login-footer {
+  text-align: center;
+  margin-top: 1.5rem;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.login-footer a {
+  color: #4CAF50;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.login-footer a:hover {
+  color: #45a049;
+}
+
+/* Responsive Design */
+@media (max-width: 640px) {
+  .login-container {
+    padding: 0.5rem;
+  }
+
+  .login-card {
+    padding: 1rem;
+  }
+
+  .login-header i {
+    font-size: 2rem;
+  }
+
+  .login-header h2 {
+    font-size: 1.3rem;
+  }
+
+  #forgot-password-form input {
+    padding: 0.7rem 2.5rem 0.7rem 1rem;
+  }
+
+  .footer-content {
+    padding: 0.8rem;
+    font-size: 0.9rem;
+  }
+}
+
 /* REGISTER PAGE */
 * {
   margin: 0;
