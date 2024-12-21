@@ -29,9 +29,10 @@
                     <i class="fas fa-user-circle"></i>
                     <h2>Welcome Back</h2>
                     <p>Enter your credentials to continue</p>
+                    <p id="loginMessage" style="color: red; display: none;"></p>
                 </div>
 
-                <form action="/login" method="POST" class="login-form" onsubmit="return handleLogin(event)">
+                <form id="loginForm" class="login-form">
                     <div class="form-group">
                         <div class="input-icon">
                             <i class="fas fa-user"></i>
@@ -51,7 +52,7 @@
                             <input type="checkbox" name="remember">
                             <span>Remember me</span>
                         </label>
-                        <a href="forgot password.html" class="forgot-password">Forgot Password?</a>
+                        <a href="forgot-password.html" class="forgot-password">Forgot Password?</a>
                     </div>
 
                     <button type="submit" class="login-button">
@@ -84,6 +85,7 @@
             <p>Contact: <a href="tel:9345581448">9345581448</a></p>
         </div>
     </footer>
+
     <script>
         // Toggle password visibility
         document.querySelector('.toggle-password').addEventListener('click', function() {
@@ -95,32 +97,58 @@
         });
 
         // Handle login form submission
-        function handleLogin(event) {
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
             event.preventDefault();
-
-            // Hardcoded username and password for validation
-            const validUsername = "user123";
-            const validPassword = "pass123";
-
-            // Get entered username and password
-            const enteredUsername = document.querySelector('#username').value;
-            const enteredPassword = document.querySelector('#password').value;
-
-            // Check credentials
-            if (enteredUsername === validUsername && enteredPassword === validPassword) {
-                alert('Login successful!');
-                window.location.href = "dashboard.html";
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const messageElement = document.getElementById('loginMessage');
+            
+            // Get registered users from localStorage
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+            
+            // Find user with matching credentials
+            const user = users.find(u => u.username === username && u.password === password);
+            
+            if (user) {
+                messageElement.style.color = 'green';
+                messageElement.textContent = 'Login successful! Redirecting...';
+                messageElement.style.display = 'block';
+                
+                // Store login status
+                localStorage.setItem('isLoggedIn', 'true');
+                localStorage.setItem('currentUser', JSON.stringify(user));
+                
+                // Redirect after delay
+                setTimeout(() => {
+                    window.location.href = 'dashboard.html';
+                }, 1500);
             } else {
-                alert('Invalid username or password. Please try again.');
+                messageElement.style.color = 'red';
+                messageElement.textContent = 'Invalid username or password. Please try again.';
+                messageElement.style.display = 'block';
+                document.getElementById('password').value = '';
             }
+        });
+
+        // Google Sign-In function
+        function signInWithGoogle() {
+            const messageElement = document.getElementById('loginMessage');
+            messageElement.style.color = 'blue';
+            messageElement.textContent = 'Redirecting to Google Sign-In...';
+            messageElement.style.display = 'block';
+            
+            setTimeout(() => {
+                window.location.href = 'dashboard.html';
+            }, 1500);
         }
 
-        // Simulate Google Sign-In
-        function signInWithGoogle() {
-            alert('Redirecting to Google Sign-In...');
-            // Redirect or handle Google OAuth here
-            window.location.href = "dashboard.html";
-        }
+        // Check if user is already logged in
+        window.addEventListener('load', function() {
+            if (localStorage.getItem('isLoggedIn') === 'true') {
+                window.location.href = 'dashboard.html';
+            }
+        });
     </script>
 </body>
 </html>

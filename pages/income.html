@@ -33,6 +33,12 @@
                     <option value="Other">Other</option>
                 </select>
 
+                <!-- Added hidden input field for custom category -->
+                <div id="otherCategoryDiv" style="display: none; margin-top: 10px;">
+                    <label for="otherCategory">Specify Other Category</label>
+                    <input type="text" id="otherCategory" name="otherCategory" placeholder="Enter custom category">
+                </div>
+
                 <label for="incomeAmount">Amount</label>
                 <input type="number" id="incomeAmount" name="amount" required>
 
@@ -55,9 +61,18 @@
             event.preventDefault();
 
             const description = document.getElementById('incomeDescription').value;
-            const category = document.getElementById('incomeCategory').value;
+            const categorySelect = document.getElementById('incomeCategory');
+            const category = categorySelect.value === 'Other'
+                ? document.getElementById('otherCategory').value.trim()
+                : categorySelect.value;
             const amount = parseFloat(document.getElementById('incomeAmount').value);
             const date = new Date().toLocaleDateString();
+
+            // Validate the custom category if "Other" is selected
+            if (categorySelect.value === 'Other' && category === '') {
+                alert('Please specify a custom category.');
+                return;
+            }
 
             const income = {
                 description,
@@ -73,6 +88,16 @@
 
             // Redirect to dashboard
             window.location.href = 'dashboard.html';
+        });
+
+        // Handle toggling of the custom category input field
+        document.getElementById('incomeCategory').addEventListener('change', function() {
+            const otherCategoryDiv = document.getElementById('otherCategoryDiv');
+            if (this.value === 'Other') {
+                otherCategoryDiv.style.display = 'block';
+            } else {
+                otherCategoryDiv.style.display = 'none';
+            }
         });
     </script>
 </body>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Income | BudgetWise</title>
+    <title>Add Budget | BudgetWise</title>
     <link rel="stylesheet" href="assets/css/main.css">
 </head>
 <body>
@@ -19,17 +19,18 @@
     </nav>
 
     <div class="container">
-        <section class="add-income-section">
-            <h2>Add Income</h2>
-            <form id="incomeForm">
-                <label for="incomeDescription">Description</label>
-                <input type="text" id="incomeDescription" name="description" required>
+        <section class="add-budget-section">
+            <h2>Add Budget</h2>
+            <form id="budgetForm">
+                <label for="budgetDescription">Description</label>
+                <input type="text" id="budgetDescription" name="description" required>
 
-                <label for="incomeCategory">Category</label>
-                <select id="incomeCategory" name="category" required>
-                    <option value="Salary">Salary</option>
-                    <option value="Business">Business</option>
-                    <option value="Investments">Investments</option>
+                <label for="budgetCategory">Category</label>
+                <select id="budgetCategory" name="category" required>
+                    <option value="Food">Food</option>
+                    <option value="Transportation">Transportation</option>
+                    <option value="Entertainment">Entertainment</option>
+                    <option value="Utilities">Utilities</option>
                     <option value="Other">Other</option>
                 </select>
 
@@ -39,10 +40,17 @@
                     <input type="text" id="otherCategory" name="otherCategory" placeholder="Enter custom category">
                 </div>
 
-                <label for="incomeAmount">Amount</label>
-                <input type="number" id="incomeAmount" name="amount" required>
+                <label for="budgetAmount">Amount</label>
+                <input type="number" id="budgetAmount" name="amount" required>
 
-                <button type="submit">Add Income</button>
+                <label for="budgetPeriod">Budget Period</label>
+                <select id="budgetPeriod" name="period" required>
+                    <option value="Monthly">Monthly</option>
+                    <option value="Weekly">Weekly</option>
+                    <option value="Yearly">Yearly</option>
+                </select>
+
+                <button type="submit">Add Budget</button>
             </form>
         </section>
     </div>
@@ -56,17 +64,17 @@
     </footer>
 
     <script>
-        // Handle form submission for adding income
-        document.getElementById('incomeForm').addEventListener('submit', function(event) {
+        // Handle adding budget
+        document.getElementById('budgetForm').addEventListener('submit', function(event) {
             event.preventDefault();
 
-            // Get form values
-            const description = document.getElementById('incomeDescription').value;
-            const categorySelect = document.getElementById('incomeCategory');
+            const description = document.getElementById('budgetDescription').value;
+            const categorySelect = document.getElementById('budgetCategory');
             const category = categorySelect.value === 'Other'
                 ? document.getElementById('otherCategory').value.trim()
                 : categorySelect.value;
-            const amount = parseFloat(document.getElementById('incomeAmount').value);
+            const amount = parseFloat(document.getElementById('budgetAmount').value);
+            const period = document.getElementById('budgetPeriod').value;
             const date = new Date().toLocaleDateString();
 
             // Validate the custom category if "Other" is selected
@@ -75,25 +83,25 @@
                 return;
             }
 
-            // Create income object
-            const income = {
+            const budget = {
                 description,
                 category,
                 amount,
+                period,
                 date
             };
 
-            // Save income in localStorage
-            const incomes = JSON.parse(localStorage.getItem('incomes')) || [];
-            incomes.push(income);
-            localStorage.setItem('incomes', JSON.stringify(incomes));
+            // Save budget in localStorage
+            const budgets = JSON.parse(localStorage.getItem('budgets')) || [];
+            budgets.push(budget);
+            localStorage.setItem('budgets', JSON.stringify(budgets));
 
             // Redirect to dashboard
             window.location.href = 'dashboard.html';
         });
 
         // Handle toggling of the custom category input field
-        document.getElementById('incomeCategory').addEventListener('change', function() {
+        document.getElementById('budgetCategory').addEventListener('change', function() {
             const otherCategoryDiv = document.getElementById('otherCategoryDiv');
             if (this.value === 'Other') {
                 otherCategoryDiv.style.display = 'block';
