@@ -34,7 +34,6 @@
                     <option value="Other">Other</option>
                 </select>
 
-                <!-- Hidden input field for custom category -->
                 <div id="otherCategoryDiv" style="display: none; margin-top: 10px;">
                     <label for="otherCategory">Specify Other Category</label>
                     <input type="text" id="otherCategory" name="otherCategory" placeholder="Enter custom category">
@@ -52,6 +51,12 @@
 
                 <button type="submit">Add Budget</button>
             </form>
+
+            <!-- Display Current Budgets -->
+            <section class="current-budgets" id="currentBudgetsSection">
+                <h3>Current Budgets</h3>
+                <div id="budgetsList"></div>
+            </section>
         </section>
     </div>
 
@@ -64,50 +69,87 @@
     </footer>
 
     <script>
-        // Handle adding budget
-        document.getElementById('budgetForm').addEventListener('submit', function(event) {
-            event.preventDefault();
+        document.addEventListener('DOMContentLoaded', function() {
+            // Display existing budgets
+            function displayBudgets() {
+                const budgets = JSON.parse(localStorage.getItem('budgets')) || [];
+                const budgetsList = document.getElementById('budgetsList');
+                budgetsList.innerHTML = '';
 
-            const description = document.getElementById('budgetDescription').value;
-            const categorySelect = document.getElementById('budgetCategory');
-            const category = categorySelect.value === 'Other'
-                ? document.getElementById('otherCategory').value.trim()
-                : categorySelect.value;
-            const amount = parseFloat(document.getElementById('budgetAmount').value);
-            const period = document.getElementById('budgetPeriod').value;
-            const date = new Date().toLocaleDateString();
+                if (budgets.length === 0) {
+                    budgetsList.innerHTML = '<p>No budgets set yet.</p>';
+                    return;
+                }
 
-            // Validate the custom category if "Other" is selected
-            if (categorySelect.value === 'Other' && category === '') {
-                alert('Please specify a custom category.');
-                return;
+                budgets.forEach((budget, index) => {
+                    const budgetElement = document.createElement('div');
+                    budgetElement.className = 'budget-item';
+                    budgetElement.innerHTML = `
+                        <p><strong>${budget.category}</strong> - ${budget.description}</p>
+                        <p>Amount: $${budget.amount.toFixed(2)} (${budget.period})</p>
+                        <button class="delete-budget" data-index="${index}">Delete</button>
+                    `;
+                    budgetsList.appendChild(budgetElement);
+                });
+
+                // Add delete functionality
+                document.querySelectorAll('.delete-budget').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const index = this.getAttribute('data-index');
+                        const budgets = JSON.parse(localStorage.getItem('budgets')) || [];
+                        budgets.splice(index, 1);
+                        localStorage.setItem('budgets', JSON.stringify(budgets));
+                        displayBudgets();
+                    });
+                });
             }
 
-            const budget = {
-                description,
-                category,
-                amount,
-                period,
-                date
-            };
+            // Handle form submission
+            document.getElementById('budgetForm').addEventListener('submit', function(event) {
+                event.preventDefault();
 
-            // Save budget in localStorage
-            const budgets = JSON.parse(localStorage.getItem('budgets')) || [];
-            budgets.push(budget);
-            localStorage.setItem('budgets', JSON.stringify(budgets));
+                const description = document.getElementById('budgetDescription').value;
+                const categorySelect = document.getElementById('budgetCategory');
+                const category = categorySelect.value === 'Other'
+                    ? document.getElementById('otherCategory').value.trim()
+                    : categorySelect.value;
+                const amount = parseFloat(document.getElementById('budgetAmount').value);
+                const period = document.getElementById('budgetPeriod').value;
+                const date = new Date().toLocaleDateString();
 
-            // Redirect to dashboard
-            window.location.href = 'dashboard.html';
-        });
+                if (categorySelect.value === 'Other' && category === '') {
+                    alert('Please specify a custom category.');
+                    return;
+                }
 
-        // Handle toggling of the custom category input field
-        document.getElementById('budgetCategory').addEventListener('change', function() {
-            const otherCategoryDiv = document.getElementById('otherCategoryDiv');
-            if (this.value === 'Other') {
-                otherCategoryDiv.style.display = 'block';
-            } else {
-                otherCategoryDiv.style.display = 'none';
-            }
+                const budget = {
+                    description,
+                    category,
+                    amount,
+                    period,
+                    date
+                };
+
+                // Save budget
+                const budgets = JSON.parse(localStorage.getItem('budgets')) || [];
+                budgets.push(budget);
+                localStorage.setItem('budgets', JSON.stringify(budgets));
+
+                // Clear form
+                this.reset();
+                
+                // Update display
+                displayBudgets();
+            });
+
+            // Handle category change
+            document.getElementById('budgetCategory').addEventListener('change', function() {
+                const otherCategoryDiv = document.getElementById('otherCategoryDiv');
+                otherCategoryDiv.style.display = this.value === 'Other' ? 'block' : 'none';
+            });
+
+            // Initial display of budgets
+            displayBudgets();
         });
     </script>
 </body>
